@@ -13,8 +13,8 @@
   "devDependencies": {},
   "scripts": {
     "build": "npm run build:bundled; npm run build:zipped", 
-    "build:bundled":"netlify-lambda build lambda/bundled-function",
-    "build:zipped":"cd lambda/zipped-function; npm i; cd ..; zip -r ../functions/zipped-function.zip zipped-function"
+    "build:bundled": "netlify-lambda build subdirectory/lambda/bundled-function",
+    "build:zipped": "cd subdirectory/lambda/zipped-function; npm i; cd ..; zip -r ../functions/zipped-function.zip zipped-function"
   },
   "repository": {
     "type": "git",
