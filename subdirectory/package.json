@@ -1,0 +1,30 @@
+{
+  "name": "function-deploy-test",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "directories": {
+    "test": "test"
+  },
+  "dependencies": {
+    "axios": "^0.19.2",
+    "netlify-lambda": "^1.6.3"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "build": "npm run build:bundled; npm run build:zipped",
+    "build:bundled":"netlify-lambda build lambda/bundled-function",
+    "build:zipped":"cd lambda/zipped-function; npm i; cd ..; zip -r ../functions/zipped-function.zip zipped-function"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/depadiernos/function-deploy-test.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/depadiernos/function-deploy-test/issues"
+  },
+  "homepage": "https://github.com/depadiernos/function-deploy-test#readme"
+}
