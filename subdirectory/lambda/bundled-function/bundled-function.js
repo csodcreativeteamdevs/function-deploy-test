@@ -1,22 +1,22 @@
 const axios = require("axios")
+const sanityClient = {};
 
-export function handler(event, context, callback) {
-
-  // Perform the API call...
-  const get = () => {
-    axios.get("https://icanhazdadjoke.com/", { headers: { Accept: "application/json" } })
-    .then((response) =>
-      {
-        console.log(response.data)
-        callback( null, {
-          statusCode: 200,
-          body: JSON.stringify(response.data)
-        })
-      }
-    )
-    .catch(err => pass(err))
+exports.handler = function (event) {
+  if (!process.env.SANITY_SCHEDULER_TOKEN) {
+    console.log('Missing SANITY_SCHEDULER_TOKEN');
   }
-  if(event.httpMethod == 'GET'){
-    get()
-  };
+  sanityClient.clientConfig.token = process.env.SANITY_SCHEDULER_TOKEN;
+
+  if (!process.env.SCHEDULER_API_KEY) {
+    console.log('Missing SCHEDULER_API_KEY');
+  }
+
+  const { apiKey } = event.queryStringParameters;
+  if (!apiKey || apiKey !== process.env.SCHEDULER_API_KEY) {
+    console.log('Invalid API key');
+  }
+
+  sanityClient.fetch('*[defined(scheduledPublishTime) && scheduledPublishTime < now() && _id match "drafts.*"]').then((result) => {
+    publishDocuments(result);
+  });
 };
