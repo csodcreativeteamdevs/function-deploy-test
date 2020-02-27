@@ -2,7 +2,7 @@ const axios = require("axios")
 
 export function handler(event, context, callback) {
 
-  // Perform the API call.
+  // Perform the API call...
   const get = () => {
     axios.get("https://icanhazdadjoke.com/", { headers: { Accept: "application/json" } })
     .then((response) =>
